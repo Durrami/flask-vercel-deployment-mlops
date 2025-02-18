@@ -3,33 +3,31 @@ name: Deploy Flask App to Vercel
 on:
   push:
     branches:
-      - main
+      - main  # Trigger the workflow only on pushes to the main branch
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment to run the actions
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v2  # Checkout your repository code
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v2  # Set up Python in the environment
       with:
-        python-version: '3.x'
+        python-version: '3.x'  # Use the latest available version of Python
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        python -m pip install --upgrade pip  # Upgrade pip to the latest version
+        pip install -r requirements.txt  # Install dependencies from requirements.txt
 
     - name: Deploy to Vercel
-      uses: amondnet/vercel-action@v20
+      uses: amondnet/vercel-action@v20  # Use the official Vercel GitHub Action
       with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}  # Vercel personal access token
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}  # Vercel project ID
       env:
-        VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+        VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}  # Vercel token to authenticate the deployment
+        VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}  # Project ID of your Vercel app
