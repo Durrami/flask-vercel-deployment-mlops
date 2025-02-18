@@ -18,7 +18,5 @@ jobs:
         npm install -g vercel  # Install Vercel CLI globally
 
     - name: Deploy to Vercel
-      run: |
-        vercel --prod --yes  # Deploy to Vercel in production mode automatically
-      env:
-        VERCEL_TOKEN: 'SIIaBBWlbINhZQWKuOdGfQcx'  # Use the token directly for deployment
+      run: vercel --token=${{ secrets.VERCEL_TOKEN }} --prod --yes
+      
